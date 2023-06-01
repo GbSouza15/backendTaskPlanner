@@ -11,14 +11,24 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
-  email    String @unique
+  email    String    @unique
   password String
-  Task     Task[]
+  Tasks    Tasks[]
+  Project  Project[]
 }
 
-model Task {
+model Tasks {
+  id       Int    @id @default(autoincrement())
+  title    String
+  content  String
+  status   String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId Int
+}
+
+model Project {
   id       Int    @id @default(autoincrement())
   title    String
   content  String
