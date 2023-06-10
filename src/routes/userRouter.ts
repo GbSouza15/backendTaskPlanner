@@ -1,5 +1,5 @@
 import { Router } from "express";
-import userRegister from "../services/userService";
+import userController from "../controllers/userController";
 
 const router = Router()
 
@@ -7,6 +7,6 @@ router.get('/', (req, res) => {
     res.send("Hello Word!")
 })
 
-router.post('/register', userRegister)
+router.post('/register', userController.registerUser)
 
 export default router
