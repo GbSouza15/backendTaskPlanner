@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
 import prisma from "../database";
-import userData from "../schema/userSchema";
+import { userDataRegister, userDataLogin } from "../schema/userSchema";
 
-const userRegister = async ({name, email, password}: userData) => {
+const userRegister = async ({name, email, password}: userDataRegister) => {
     
     if (typeof name !== 'string') {
         throw new Error("Nome inválido.")
@@ -39,7 +38,7 @@ const userRegister = async ({name, email, password}: userData) => {
     }
 }
 
-const userLogin = async (req: Request, res: Response) => {
+const userLogin = async ({ email, password }: userDataLogin) => {
     console.log("Criado");
     
 }

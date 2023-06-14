@@ -1,7 +1,10 @@
-interface userData {
+export interface userDataRegister {
     name: string,
     email: string,
     password: string
 }
 
-export default userData
+export interface userDataLogin {
+    email: string,
+    password: string
+}
