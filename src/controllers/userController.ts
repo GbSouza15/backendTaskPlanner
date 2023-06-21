@@ -19,9 +19,9 @@ const loginUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
-    await userService.userLogin({ email, password });
+    const token = await userService.userLogin({ email, password });
 
-    res.status(200).json({ msg: "Login realizado com sucesso." });
+    res.status(200).json({ msg: "Login realizado com sucesso.", token});
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ msg: error.message });

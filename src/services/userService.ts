@@ -44,8 +44,37 @@ const userRegister = async ({ name, email, password }: userDataRegister) => {
   }
 };
 
-const userLogin = async ({ email, password }: userDataLogin) => {
-  console.log("Criado");
+const userLogin = async ({
+  email,
+  password,
+}: userDataLogin): Promise<string> => {
+  const user = await prisma.user.findFirst({
+    where: {
+      email: email,
+    },
+  });
+
+  if (!user) {
+    throw new Error("Usuário não encontrado.");
+  }
+
+  const verifyPassword = await bcrypt.compare(password, user.password);
+
+  if (!verifyPassword) {
+    throw new Error("Senha incorreta ou inválida.");
+  }
+
+  const secret: string = process.env.SECRET || "";
+
+  const token = jwt.sign(
+    {
+      id: user.id,
+    },
+    secret,
+    { expiresIn: "10m" }
+  );
+
+  return token;
 };
 
 export default {
